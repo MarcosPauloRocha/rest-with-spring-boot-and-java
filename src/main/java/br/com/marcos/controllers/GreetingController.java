@@ -1,5 +1,6 @@
-package br.com.marcos;
+package br.com.marcos.controllers;
 
+import br.com.marcos.Greeting;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
