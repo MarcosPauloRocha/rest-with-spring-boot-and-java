@@ -1,16 +1,16 @@
 package br.com.marcos.services;
 
 import br.com.marcos.data.vo.v1.PersonVO;
+import br.com.marcos.data.vo.v2.PersonVOV2;
 import br.com.marcos.exceptions.ResourceNotFoundException;
 import br.com.marcos.mapper.DozerMapper;
+import br.com.marcos.mapper.custom.PersonMapper;
 import br.com.marcos.model.Person;
 import br.com.marcos.repositories.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicLong;
 import java.util.logging.Logger;
 
 @Service
@@ -19,6 +19,9 @@ public class PersonServices {
 
     @Autowired
     PersonRepository repository;
+
+    @Autowired
+    PersonMapper mapper;
 
     public List<PersonVO> findAll() {
         logger.info("Finding all people!");
@@ -39,6 +42,13 @@ public class PersonServices {
         var entity = DozerMapper.parseObject(person, Person.class);
 
         return DozerMapper.parseObject(repository.save(entity), PersonVO.class);
+    }
+
+    public PersonVOV2 createV2(PersonVOV2 person) {
+        logger.info("Creating one person With Version 2!");
+        var entity = mapper.convertVoToEntity(person);
+
+        return mapper.convertEntityToVo(repository.save(entity));
     }
 
     public PersonVO update(PersonVO person) {
