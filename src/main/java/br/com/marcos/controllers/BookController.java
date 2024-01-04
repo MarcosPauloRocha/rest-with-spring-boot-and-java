@@ -1,7 +1,7 @@
 package br.com.marcos.controllers;
 
-import br.com.marcos.data.vo.v1.PersonVO;
-import br.com.marcos.services.PersonServices;
+import br.com.marcos.data.vo.v1.BookVO;
+import br.com.marcos.services.BookServices;
 import br.com.marcos.util.MediaType;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -16,25 +16,25 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/person/v1")
-@Tag(name = "People", description = "Endpoints for Managing People")
-public class PersonController {
+@RequestMapping("/api/book/v1")
+@Tag(name = "Book", description = "Endpoints for Managing Book")
+public class BookController {
 
     @Autowired
-    private PersonServices service;
+    private BookServices service;
 
     @GetMapping(
         produces = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML}
     )
-    @Operation(summary = "Finds All People",
-        description = "Finds All People",
-        tags = {"People"},
+    @Operation(summary = "Finds All Books",
+        description = "Finds All Books",
+        tags = {"Book"},
         responses = {
             @ApiResponse(
                 description = "Sucess",
                 responseCode = "200",
                 content = @Content(mediaType = "application/json",
-                    array = @ArraySchema(schema = @Schema(implementation = PersonVO.class))
+                    array = @ArraySchema(schema = @Schema(implementation = BookVO.class))
                 )
             ),
             @ApiResponse(
@@ -59,23 +59,22 @@ public class PersonController {
             )
         }
     )
-    public List<PersonVO> findAll(){
+    public List<BookVO> findAll(){
         return service.findAll();
     }
 
-    //@CrossOrigin(origins = {"https://localhost:8080", "https://marcos.com.br"})
     @GetMapping(
         value = "/{id}",
         produces = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML}
     )
-    @Operation(summary = "Finds a Person",
-        description = "Finds a Person",
-        tags = {"People"},
+    @Operation(summary = "Finds a Book",
+        description = "Finds a Book",
+        tags = {"Book"},
         responses = {
             @ApiResponse(
                 description = "Sucess",
                 responseCode = "200",
-                content = @Content(schema = @Schema(implementation = PersonVO.class))
+                content = @Content(schema = @Schema(implementation = BookVO.class))
             ),
             @ApiResponse(
                 description = "No Content",
@@ -104,23 +103,22 @@ public class PersonController {
             )
         }
     )
-    public PersonVO findById(@PathVariable(value = "id") Long id){
+    public BookVO findById(@PathVariable(value = "id") Long id){
         return service.findById(id);
     }
 
-    @CrossOrigin(origins = {"https://localhost:8080", "https://marcos.com.br"})
     @PostMapping(
         produces = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML},
         consumes = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML}
     )
-    @Operation(summary = "Adds a new Person",
-        description = "Adds a new Person by passing in a JSON, XML or YML ",
-        tags = {"People"},
+    @Operation(summary = "Adds a new Book",
+        description = "Adds a new Book by passing in a JSON, XML or YML ",
+        tags = {"Book"},
         responses = {
             @ApiResponse(
                 description = "Sucess",
                 responseCode = "200",
-                content = @Content(schema = @Schema(implementation = PersonVO.class))
+                content = @Content(schema = @Schema(implementation = BookVO.class))
             ),
             @ApiResponse(
                 description = "Bad Request",
@@ -139,22 +137,22 @@ public class PersonController {
             )
         }
     )
-    public PersonVO create(@RequestBody PersonVO person){
-        return service.create(person);
+    public BookVO create(@RequestBody BookVO book){
+        return service.create(book);
     }
 
     @PutMapping(
         produces = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML},
         consumes = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML}
     )
-    @Operation(summary = "Updates a Person",
-        description = "Updates a Person by passing in a JSON, XML or YML ",
-        tags = {"People"},
+    @Operation(summary = "Updates a Book",
+        description = "Updates a Book by passing in a JSON, XML or YML ",
+        tags = {"Book"},
         responses = {
             @ApiResponse(
                 description = "Updated",
                 responseCode = "200",
-                content = @Content(schema = @Schema(implementation = PersonVO.class))
+                content = @Content(schema = @Schema(implementation = BookVO.class))
             ),
             @ApiResponse(
                 description = "Bad Request",
@@ -178,14 +176,14 @@ public class PersonController {
             )
         }
     )
-    public PersonVO update(@RequestBody PersonVO person){
-        return service.update(person);
+    public BookVO update(@RequestBody BookVO book){
+        return service.update(book);
     }
 
     @DeleteMapping(value = "/{id}")
-    @Operation(summary = "Deletes a Person",
-        description = "Deletes a Person by passing in a JSON, XML or YML ",
-        tags = {"People"},
+    @Operation(summary = "Deletes a Book",
+        description = "Deletes a Book by passing in a JSON, XML or YML ",
+        tags = {"Book"},
         responses = {
             @ApiResponse(
                 description = "No Content",
